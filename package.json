@@ -1,0 +1,23 @@
+{
+  "name": "empleados-solid-starter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/servers/server.ts",
+    "build": "tsc",
+    "start": "node dist/servers/server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.6.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.24.4",
+    "morgan": "^1.12.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}
