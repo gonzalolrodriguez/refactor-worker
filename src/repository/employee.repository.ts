@@ -19,5 +19,3 @@ export class EmployeeRepository {
     return await EmployeeModel.findById(id);
   }
 }
-
-export const employeeRepository = new EmployeeRepository();

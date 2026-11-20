@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { EmployeeService } from "../services/employee.service";
+import { EmployeeService } from "../services/employee.service.ts";
 
 // Principio de Inversión de Dependencias (DIP):
 
@@ -40,7 +40,7 @@ export class EmployeeController {
   };
 
   // GET de un employee por id
-  getEmployeeById = async (req: Request, res: Response, next: NextFunction) => {
+  getEmployeeById = async (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
     try {
       const { id } = req.params;
       const employee = await this.employeeService.getEmployeeById(id);

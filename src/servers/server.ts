@@ -13,8 +13,8 @@ app.use(employeeRoutes);
 // Middleware centralizado de errores (debe ir después de las rutas)
 app.use(errorHandler);
 
-const PORT = process.env.PORT; 
-const MONGO_URI = process.env.MONGO_URI;
+const PORT = Number(process.env.PORT ?? 3000);
+const MONGO_URI = process.env.MONGO_URI ?? "mongodb://localhost:27017/employees_db";
 
 mongoose
   .connect(MONGO_URI)

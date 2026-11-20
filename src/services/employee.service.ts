@@ -1,5 +1,6 @@
 import { EmployeeRepository } from "../repository/employee.repository.ts";
 import { IEmployee } from "../models/employee.model.ts";
+import { ValidationError } from "../errorHandler/appError.ts";
 
 
 //  Data Transfer Object para los datos necesarios al crear empleado
@@ -21,11 +22,11 @@ export class EmployeeService {
     const { name, position, baseSalary, yearsOfService } = data;
 
     if (!name || !position) {
-      throw new Error("Nombre y puesto son obligatorios");
+      throw new ValidationError("Nombre y puesto son obligatorios");
     }
 
     if (typeof baseSalary !== "number" || baseSalary <= 0) {
-      throw new Error("El salario base debe ser mayor a 0");
+      throw new ValidationError("El salario base debe ser mayor a 0");
     }
 
     if (
@@ -33,7 +34,7 @@ export class EmployeeService {
       yearsOfService < 0 ||
       !Number.isInteger(yearsOfService)
     ) {
-      throw new Error("La antigüedad debe ser un entero mayor o igual a 0");
+      throw new ValidationError("La antigüedad debe ser un entero mayor o igual a 0");
     }
 
     // salario final = salario base + 2% del salario base por cada año de antigüedad
@@ -41,13 +42,16 @@ export class EmployeeService {
     const finalSalary = baseSalary + bonus;
 
     //Delega la persistencia al repository (SRP)
-    return await this.employeeRepository.create({
+    const employee = await this.employeeRepository.create({
       name,
       position,
       baseSalary,
       yearsOfService,
       finalSalary
     });
+
+    console.log(`Empleado creado: ${employee.name} - salario final: ${employee.finalSalary}`);
+    return employee;
   }
 
   async getAllEmployees(): Promise<IEmployee[]> {
